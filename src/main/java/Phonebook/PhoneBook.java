@@ -8,9 +8,9 @@ import java.util.*;
 public class PhoneBook {
 
 
-    private TreeMap<String, ArrayList<Integer> > theTable = new TreeMap<String, ArrayList<Integer>>();
+    private TreeMap<String, ArrayList<Integer> > theContacts = new TreeMap<String, ArrayList<Integer>>();
 
-   private ArrayList<Integer> phoneNumber = new ArrayList<Integer>();
+   private ArrayList<String> deletedContact = new ArrayList<String>() ;
 
 
 
@@ -18,24 +18,24 @@ public class PhoneBook {
 
 
     public void addContact(String name, int number) {
-        if(theTable.containsKey(name)){
-            theTable.get(name).add(number);
+        if(theContacts.containsKey(name)){
+            theContacts.get(name).add(number);
         }
         else {
 
             ArrayList newContact = new ArrayList();
             newContact.add(number);
-        theTable.put(name,newContact);}}
+        theContacts.put(name,newContact);}}
 
 
     public String lookUpByName(String name) {
 
         String numbers="";
 
-      if (theTable.containsKey(name)){
+      if (theContacts.containsKey(name)){
 
-            for (int i =0;i<theTable.get(name).size();i++) {
-             numbers += " # "+  theTable.get(name).get(i);
+            for (int i = 0; i< theContacts.get(name).size(); i++) {
+             numbers += " # "+  theContacts.get(name).get(i);
             }}
 
         return numbers;}
@@ -43,8 +43,8 @@ public class PhoneBook {
 
 
     public String lookupbyNumber(int number) {
-        for (String go :theTable.keySet()){
-            if( theTable.get(go).contains(number)){return go;}
+        for (String go : theContacts.keySet()){
+            if( theContacts.get(go).contains(number)){return go;}
 
         }
 
@@ -55,7 +55,10 @@ public class PhoneBook {
 
 
     public void removeContact(String name) {
-        theTable.remove(name);
+
+            String addToDelete =name+ theContacts.get(name);
+       deletedContact.add(addToDelete);
+        theContacts.remove(name);
     }
 
 
@@ -63,7 +66,7 @@ public class PhoneBook {
 
         String names="" ;
 
-        for (String go: theTable.keySet())
+        for (String go: theContacts.keySet())
 
             names += " "+go;
 
@@ -72,6 +75,14 @@ public class PhoneBook {
 
 
     public TreeMap<String,ArrayList<Integer>> listNamesAndNumbers() {
-    return  theTable;
+    return theContacts;
     }
+
+    public ArrayList<String>deleteHistory(){
+
+
+    return deletedContact;
+    }
+
+
 }

@@ -4,6 +4,7 @@ import Phonebook.PhoneBook;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,5 +71,30 @@ PhoneBook phoneBook = new PhoneBook();
             phoneBook.listNamesAndNumbers());
 
 }
+@Test
+public void removeTest(){
 
+    phoneBook.addContact("phil",4545);
+    phoneBook.addContact("james",215343);
+    phoneBook.addContact("castro",216565);
+    phoneBook.removeContact("phil");
+
+    String expectedNames = " castro james";
+    Assert.assertEquals("print deleted history",expectedNames,phoneBook.listNames());
+
+}
+
+
+@Test
+public void historyTest(){
+
+    phoneBook.addContact("phil",4545);
+    phoneBook.addContact("james",215343);
+    phoneBook.addContact("castro",216565);
+
+    phoneBook.removeContact("phil");
+    phoneBook.removeContact("castro");
+
+    Assert.assertEquals("test",phoneBook.deleteHistory());
+}
 }
